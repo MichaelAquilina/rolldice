@@ -3,7 +3,7 @@ extern crate rand;
 
 use clap::{Arg, App};
 
-use rand::Rng;
+use rand::distributions::{Range, IndependentSample};
 
 #[derive(Debug, PartialEq, Eq)]
 struct Dice {
@@ -24,6 +24,16 @@ impl Dice {
 
         Some(Dice { number, sides })
     }
+
+    fn generate(&self) -> u32 {
+        let mut rng = rand::thread_rng();
+        let between = Range::new(0, self.sides);
+        let mut total = 0;
+        for _ in 0..self.number {
+            total += between.ind_sample(&mut rng);
+        }
+        total
+    }
 }
 
 
@@ -34,9 +44,9 @@ fn main() {
         .get_matches();
 
     let dice = matches.value_of("dice").unwrap();
-    let dice = Dice::parse(dice);
+    let dice = Dice::parse(dice).unwrap();
 
-    println!("{:?}", dice);
+    println!("{:?}", dice.generate());
 }
 
 
