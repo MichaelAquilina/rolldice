@@ -33,7 +33,7 @@ impl Dice {
         Ok(Dice { number, sides })
     }
 
-    fn generate(&self, mut rng: &mut Rng) -> u32 {
+    fn generate<R: Rng>(&self, mut rng: &mut R) -> u32 {
         let between = Range::new(1, self.sides);
         let mut total = 0;
         for _ in 0..self.number {
