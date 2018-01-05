@@ -9,13 +9,15 @@ use clap::{Arg, App};
 fn main() {
     let matches = App::new("rolldice")
         .arg(Arg::with_name("dice")
-             .required(true))
+             .required(true)
+             .multiple(true))
         .get_matches();
 
-    let dice = matches.value_of("dice").unwrap();
-    let dice = Dice::parse(dice).unwrap();
-
     let mut rng = rand::thread_rng();
+    for dice in matches.values_of("dice").unwrap() {
+        let dice = Dice::parse(dice).unwrap();
 
-    println!("{:?}", dice.generate(&mut rng));
+        print!("{} ", dice.generate(&mut rng));
+    }
+    println!("");
 }
