@@ -14,17 +14,23 @@ struct Dice {
 }
 
 impl Dice {
-    fn parse(dice: &str) -> Option<Dice> {
+    fn parse(dice: &str) -> Result<Dice, &str> {
         let tokens: Vec<&str> = dice.split("d").collect();
 
         if tokens.len() != 2 {
-            return None;
+            return Err("Invalid format");
         }
 
-        let number = tokens[0].parse().unwrap();
-        let sides = tokens[1].parse().unwrap();
+        let number = match tokens[0].parse() {
+            Ok(num) => num,
+            Err(_) => return Err("Expected valid number of dice"),
+        };
+        let sides = match tokens[1].parse() {
+            Ok(num) => num,
+            Err(_) => return Err("Expected valid number of sides"),
+        };
 
-        Some(Dice { number, sides })
+        Ok(Dice { number, sides })
     }
 
     fn generate(&self, mut rng: &mut Rng) -> u32 {
@@ -59,17 +65,17 @@ mod test {
 
     #[test]
     fn dice_parse_none() {
-        assert_eq!(Dice::parse(""), None);
-        assert_eq!(Dice::parse("something"), None);
+        assert!(Dice::parse("").is_err());
+        assert!(Dice::parse("something").is_err());
     }
 
     #[test]
     fn dice_parse_correct() {
         assert_eq!(
             Dice::parse("6d100"),
-            Some(Dice { number: 6, sides: 100 }));
+            Ok(Dice { number: 6, sides: 100 }));
         assert_eq!(
             Dice::parse("1d5"),
-            Some(Dice { number: 1, sides: 5}));
+            Ok(Dice { number: 1, sides: 5}));
     }
 }
