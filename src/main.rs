@@ -28,7 +28,7 @@ impl Dice {
     }
 
     fn generate(&self, mut rng: &mut Rng) -> u32 {
-        let between = Range::new(0, self.sides);
+        let between = Range::new(1, self.sides);
         let mut total = 0;
         for _ in 0..self.number {
             total += between.ind_sample(&mut rng);
