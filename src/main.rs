@@ -9,6 +9,7 @@ use clap::{Arg, App};
 fn main() {
     let matches = App::new("rolldice")
         .arg(Arg::with_name("dice")
+             .help("Specify dice to roll in the form of <number>d<sides> e.g. 2d6")
              .required(true)
              .multiple(true))
         .get_matches();
