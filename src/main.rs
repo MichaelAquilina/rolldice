@@ -65,6 +65,8 @@ mod test {
 
     #[test]
     fn dice_parse_none() {
+        assert!(Dice::parse("d6").is_err());
+        assert!(Dice::parse("1d").is_err());
         assert!(Dice::parse("").is_err());
         assert!(Dice::parse("something").is_err());
     }
