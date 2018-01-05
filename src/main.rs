@@ -4,7 +4,7 @@ extern crate rand;
 use clap::{Arg, App};
 
 
-use rand::{SeedableRng, Rng, StdRng};
+use rand:: Rng;
 use rand::distributions::{Range, IndependentSample};
 
 #[derive(Debug, PartialEq, Eq)]
@@ -62,6 +62,7 @@ fn main() {
 #[cfg(test)]
 mod test {
     use super::*;
+    use rand::{SeedableRng, StdRng};
 
     #[test]
     fn dice_generate() {
