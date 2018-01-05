@@ -4,7 +4,7 @@ extern crate rand;
 use clap::{Arg, App};
 
 
-use rand::Rng;
+use rand::{SeedableRng, Rng, StdRng};
 use rand::distributions::{Range, IndependentSample};
 
 #[derive(Debug, PartialEq, Eq)]
@@ -62,6 +62,23 @@ fn main() {
 #[cfg(test)]
 mod test {
     use super::*;
+
+    #[test]
+    fn dice_generate() {
+        let dice = Dice { sides: 6, number: 4 };
+
+        let seed: &[_] = &[1, 2, 3, 4];
+        let mut rng: StdRng = SeedableRng::from_seed(seed);
+        let result = dice.generate(&mut rng);
+        assert_eq!(result, 10);
+
+        let mut rng = rand::thread_rng();
+        for _ in 1..100 {
+            let result = dice.generate(&mut rng);
+            assert!(result >= 4);
+            assert!(result <= 24);
+        }
+    }
 
     #[test]
     fn dice_parse_none() {
