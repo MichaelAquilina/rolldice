@@ -6,11 +6,21 @@ use rand::distributions::{Range, IndependentSample};
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct Dice {
-    number: u32,
-    sides: u32,
+    pub number: u32,
+    pub sides: u32,
 }
 
 impl Dice {
+    /// Create a Dict instance give a standard dice format.
+    /// Expected format is <number>d<sides> where <number>
+    /// is the number of dice to roll and <sides> is the number
+    /// of sides per dice rolled.
+    ///
+    /// ```
+    /// let result = rolldice::Dice::parse("4d6").unwrap();
+    ///
+    /// assert_eq!(result, rolldice::Dice { number: 4, sides: 6 });
+    /// ```
     pub fn parse(dice: &str) -> Result<Dice, &str> {
         let tokens: Vec<&str> = dice.split("d").collect();
 
@@ -30,6 +40,18 @@ impl Dice {
         Ok(Dice { number, sides })
     }
 
+    /// Generate a dice role from a Dice instance. Requires a random
+    /// number generator from the "rand" crate to be passed in.
+    ///
+    /// ```
+    /// extern crate rand;
+    /// extern crate rolldice;
+    ///
+    /// let dice = rolldice::Dice{ number: 4, sides: 8 };
+    /// let mut rng = rand::thread_rng();
+    ///
+    /// let result = dice.generate(&mut rng);
+    /// ```
     pub fn generate<R: Rng>(&self, mut rng: &mut R) -> u32 {
         let between = Range::new(1, self.sides);
         let mut total = 0;
