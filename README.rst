@@ -2,7 +2,7 @@
 Rolldice
 ========
 
-|TravisCI|
+|TravisCI| |CratesIO|
 
 Simple program that generates random dice rolls given a typical representation for
 number of dice and number of sides.
@@ -15,3 +15,6 @@ For example:
 
 .. |TravisCI| image:: https://travis-ci.org/MichaelAquilina/rolldice.svg?branch=master
    :target: https://travis-ci.org/MichaelAquilina/rolldice
+
+.. |CratesIO| image:: https://img.shields.io/crates/v/rolldice.svg
+   :target: https://crates.io/crates/rolldice
