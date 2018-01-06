@@ -1,7 +1,9 @@
 [package]
 name = "rolldice"
 version = "0.1.0"
+license = "GPLv3"
 authors = ["Michael Aquilina <michaelaquilina@gmail.com>"]
+description = "Command line utility to generate dice roll values"
 
 [dependencies]
 rand = "0.4"
