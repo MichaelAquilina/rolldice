@@ -47,7 +47,7 @@ impl Dice {
     /// extern crate rand;
     /// extern crate rolldice;
     ///
-    /// let dice = rolldice::Dice{ number: 4, sides: 8 };
+    /// let dice = rolldice::Dice { number: 4, sides: 8 };
     /// let mut rng = rand::thread_rng();
     ///
     /// let result = dice.generate(&mut rng);
