@@ -21,20 +21,20 @@ impl Dice {
     ///
     /// assert_eq!(result, rolldice::Dice { number: 4, sides: 6 });
     /// ```
-    pub fn parse(dice: &str) -> Result<Dice, &str> {
+    pub fn parse(dice: &str) -> Result<Dice, String> {
         let tokens: Vec<&str> = dice.split("d").collect();
 
         if tokens.len() != 2 {
-            return Err("Invalid format");
+            return Err(format!("Invalid dice format '{}'", dice));
         }
 
         let number = match tokens[0].parse() {
             Ok(num) => num,
-            Err(_) => return Err("Expected valid number of dice"),
+            Err(_) => return Err(format!("Invalid number of dice '{}'", tokens[0])),
         };
         let sides = match tokens[1].parse() {
             Ok(num) => num,
-            Err(_) => return Err("Expected valid number of sides"),
+            Err(_) => return Err(format!("Invalid number of sides '{}'", tokens[1])),
         };
 
         Ok(Dice { number, sides })
@@ -86,11 +86,21 @@ mod test {
     }
 
     #[test]
-    fn dice_parse_none() {
-        assert!(Dice::parse("d6").is_err());
-        assert!(Dice::parse("1d").is_err());
-        assert!(Dice::parse("").is_err());
-        assert!(Dice::parse("something").is_err());
+    fn dice_parse_invalid_number_of_dice() {
+        assert_eq!(Dice::parse("d6").unwrap_err(), "Invalid number of dice ''");
+        assert_eq!(Dice::parse("Td10").unwrap_err(), "Invalid number of dice 'T'");
+    }
+
+    #[test]
+    fn dice_parse_invalid_number_of_sides() {
+        assert_eq!(Dice::parse("1d").unwrap_err(), "Invalid number of sides ''");
+        assert_eq!(Dice::parse("1dY").unwrap_err(), "Invalid number of sides 'Y'");
+    }
+
+    #[test]
+    fn dice_parse_invalid_dice_format() {
+        assert_eq!(Dice::parse("").unwrap_err(), "Invalid dice format ''");
+        assert_eq!(Dice::parse("something").unwrap_err(), "Invalid dice format 'something'");
     }
 
     #[test]

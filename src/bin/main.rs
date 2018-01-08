@@ -16,9 +16,10 @@ fn main() {
 
     let mut rng = rand::thread_rng();
     for dice in matches.values_of("dice").unwrap() {
-        let dice = Dice::parse(dice).unwrap();
-
-        print!("{} ", dice.generate(&mut rng));
+        match Dice::parse(dice) {
+            Ok(v) => print!("{} ", v.generate(&mut rng)),
+            Err(message) => print!("{}", message),
+        }
     }
     println!("");
 }
