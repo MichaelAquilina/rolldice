@@ -19,9 +19,9 @@ Installing
 
 The easiest way to install rolldice is using cargo:
 
-```
-$ cargo install rolldice
-```
+::
+
+    $ cargo install rolldice
 
 .. |TravisCI| image:: https://travis-ci.org/MichaelAquilina/rolldice.svg?branch=master
    :target: https://travis-ci.org/MichaelAquilina/rolldice
