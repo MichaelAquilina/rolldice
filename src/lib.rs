@@ -11,7 +11,7 @@ pub struct Dice {
 }
 
 impl Dice {
-    /// Create a Dict instance give a standard dice format.
+    /// Create a Dice instance given a standard dice format.
     /// Expected format is <number>d<sides> where <number>
     /// is the number of dice to roll and <sides> is the number
     /// of sides per dice rolled.
