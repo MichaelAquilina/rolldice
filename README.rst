@@ -13,6 +13,16 @@ For example:
 - "4d6" will roll 4 dice with 6 sides each
 - etc....
 
+
+Installing
+----------
+
+The easiest way to install rolldice is using cargo:
+
+```
+$ cargo install rolldice
+```
+
 .. |TravisCI| image:: https://travis-ci.org/MichaelAquilina/rolldice.svg?branch=master
    :target: https://travis-ci.org/MichaelAquilina/rolldice
 
